@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Questionnaire Website</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+		}
+
+		header {
+			background-color: #333;
+			color: #fff;
+			padding: 10px;
+			text-align: center;
+		}
+
+		.container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			height: 100vh;
+			padding: 20px;
+		}
+
+		h1 {
+			margin-top: 0;
+			margin-bottom: 20px;
+			font-size: 24px;
+			text-align: center;
+		}
+
+		button {
+			background-color: #333;
+			color: #fff;
+			border: none;
+			padding: 10px;
+			margin: 10px;
+			cursor: pointer;
+			font-size: 16px;
+		}
+
+		button:hover {
+			background-color: #555;
+		}
+
+		.hidden {
+			display: none;
+		}
+	</style>
+</head<body>
+	<header>
+		<h1>Твой помощник в локализации багов</h1>
+	</header>
+
+	<div class="container">
+		<div id="home-page">
+			<h1>Баг видим для пользователя?</h1>
+			<button onclick="showServerRequestForm()">Да</button>
+		</div>
+
+		<div id="server-request-form" class="hidden">
+			<h1>Корректны ли данные запроса к серверу?</h1>
+			<button onclick="showBugMessage('Фронтенд')">Нет</button>
+			<button onclick="showServerResponseForm()">Да</button>
+		</div>
+
+		<div id="server-response-form" class="hidden">
+			<h1>Корректно ли отвечает сервер?</h1>
+			<button onclick="showBugMessage('Бэкенд')">Нет</button>
+			<button onclick="showDatabaseForm()">Да</button>
+		</div>
+
+		<div id="database-form" class="hidden">
+			<h1>Корректны ли данные в Базе данных в результате обработки запроса сервером?</h1>
+			<button onclick="showBugMessage('Бэкенд')">Нет</button>
+			<button onclick="showBugMessage('Фронтенд')">Да</button>
+		</div>
+
+		<div id="bug-message" class="hidden">
+			<h1 id="bug-type"></h1>
+			<button onclick="resetForm()">Начать заново</button>
+		</div>
+	</div>
+
+	<script>
+		function showServerRequestForm() {
+			document.getElementById('home-page').classList.add('hidden');
+			document.getElementById('server-request-form').classList.remove('hidden');
+		}
+
+		function showServerResponseForm() {
+			document.getElementById('server-request-form').classList.add('hidden');
+			document.getElementById('server-response-form').classList.remove('hidden');
+		}
+
+		function showDatabaseForm() {
+			document.getElementById('server-response-form').classList.add('hidden');
+			document.getElementById('database-form').classList.remove('hidden');
+		}
+
+		function showBugMessage(type) {
+			document.getElementById('database-form').classList.add('hidden');
+			document.getElementById('bug-message').classList.remove('hidden');
+			document.getElementById('bug-type').textContent = 'Баг на ' + type;
+		}
+
+		function resetForm() {
+			document.getElementById('bug-message').classList.add('hidden');
+			document.getElementById('home-page').classList.remove('hidden');
+			document.getElementById('server-request-form').classList.add('hidden');
+			document.getElementById('server-response-form').classList.add('hidden');
+			document.getElementById('database-form').classList.add('hidden');
+		}
+	</script>
+</body>
+</html>
